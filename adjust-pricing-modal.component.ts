@@ -1023,19 +1023,8 @@ export class ExtnAdjustPricingModalComponent extends BaseModal implements OnInit
         } 
         else if (this.isLineLevel) {
             this.model.data[index][5].data.isDisable = false;
+			this.model.data[index][4].data.isDisable = true;
     
-            for (let i = 0; i <= index; i++) {
-                const curChargePercentage = this.model.data[i][4].data.value;
-                this.model.data[i][4].data.isDisable = true;
-                const orderShippedStatus = 3700; 
-                const maxLineStatus = Number(this.modalData?.lineDetails?.line?.MaxLineStatus) || 0; // Ensure it's a valid number
-                
-                if (!BucBaseUtil.isVoid(curChargePercentage) && maxLineStatus < orderShippedStatus) {
-                    this.strChargePercentage = '';
-                    this.model.data[i][4].data.isDisable = false;
-                    this.model.data[i][5].data.isDisable = true;
-                }
-            }
         } 
         else {
             this.model.data[index][5].data.isDisable = false;
@@ -2221,6 +2210,7 @@ export class ExtnAdjustPricingModalComponent extends BaseModal implements OnInit
     
         this.amountChangedSub.next({ index:index, value:String(totalShippingAmount), chargeAmountId: index });
         this.model.data[index][5].data.isDisable = true;
+		this.model.data[index][5].data.value = String(totalShippingAmount) ;
         
         this.saveChargesEnabled=true;
     }
